@@ -2712,78 +2712,58 @@ function processVoiceCommand(command) {
     console.log('Processing voice command:', command);
     
     // Convert command to lowercase for easier matching
-    const lowerCommand = command.toLowerCase();
+    command = command.toLowerCase();
     
-    // Regular expressions to match different patterns
+    // Define patterns for different types of commands
     const expensePattern = /(?:spent|paid|used|bought|purchased)\s+(\d+(?:\.\d+)?)\s+(?:on|for|in)\s+([a-zA-Z\s]+)/i;
     const incomePattern = /(?:received|got|earned|made)\s+(\d+(?:\.\d+)?)\s+(?:from|as|for|in|money)\s*([a-zA-Z\s]*)?/i;
     
-    // Try to match expense pattern first
-    let match = lowerCommand.match(expensePattern);
-    let transactionType = 'expense';
+    // Try to match the command against different patterns
+    let match;
     
-    // If no expense match, try income pattern
-    if (!match) {
-        match = lowerCommand.match(incomePattern);
-        transactionType = 'income';
-    }
-    
+    // Check for income first
+    match = command.match(incomePattern);
     if (match) {
         const amount = parseFloat(match[1]);
-        let category = match[2] ? match[2].trim().toLowerCase() : '';
+        // If no category is specified, default to 'Salary'
+        const category = match[2] ? match[2].trim().toLowerCase() : 'salary';
         
         // Map common voice categories to actual categories
         const categoryMap = {
-            // Expense categories
-            'food': 'food',
-            'foods': 'food',
-            'eating': 'food',
-            'transport': 'transport',
-            'travel': 'transport',
-            'shopping': 'shopping',
-            'entertainment': 'entertainment',
-            'bills': 'bills',
-            'utilities': 'bills',
-            'health': 'health',
-            'medical': 'health',
-            'education': 'education',
-            'study': 'education',
-            
             // Income categories
-            'salary': 'salary',
-            'freelance': 'freelance',
-            'investment': 'investment',
-            'business': 'business',
-            'gift': 'gifts',
-            'gifts': 'gifts',
-            'other': 'other income',
-            'money': 'other income',
-            'work': 'salary',
-            'job': 'salary',
-            'payment': 'other income',
-            'bonus': 'other income',
-            'commission': 'other income'
+            'salary': 'Salary',
+            'wage': 'Salary',
+            'payment': 'Salary',
+            'work': 'Salary',
+            'job': 'Salary',
+            'business': 'Business',
+            'freelance': 'Business',
+            'investment': 'Investment',
+            'stocks': 'Investment',
+            'gift': 'Gift',
+            'gifts': 'Gift',
+            'present': 'Gift',
+            'refund': 'Refund',
+            'return': 'Refund',
+            'bonus': 'Salary',
+            'commission': 'Salary',
+            'other': 'Other Income',
+            'money': 'Other Income'
         };
-        
-        // For income without a specified category
-        if (transactionType === 'income' && (!category || category === 'money')) {
-            category = 'other income';
-        }
-        
-        // Get the mapped category or use the original
-        const mappedCategory = categoryMap[category] || category;
         
         // Create transaction object
         const transaction = {
-            id: Date.now(),
-            type: transactionType,
+            id: Date.now().toString(),
+            type: 'income',
             amount: amount,
-            category: mappedCategory,
-            description: `Voice command: ${command}`,
-            date: new Date().toISOString().split('T')[0]
+            category: categoryMap[category] || 'Other Income',
+            description: `${category} income`,
+            date: new Date().toISOString()
         };
         
-        // Save the transaction
+        console.log('Creating income transaction:', transaction);
+        
+        // Save transaction
         saveTransaction(transaction);
         
         // Update UI
@@ -2794,33 +2774,110 @@ function processVoiceCommand(command) {
         // Show success message
         const responseText = document.getElementById('responseText');
         if (responseText) {
-            const action = transactionType === 'expense' ? 'Added expense' : 'Recorded income';
             responseText.innerHTML = `
                 <div class="flex items-center justify-center space-x-2 text-green-600 mt-4">
                     <i class="fas fa-check-circle text-xl"></i>
-                    <span class="font-medium">${action}: ₹${amount} for ${mappedCategory}</span>
+                    <span class="font-medium">Income recorded: ${amount} from ${transaction.category}</span>
                 </div>
             `;
         }
         
         // Speak confirmation
-        const action = transactionType === 'expense' ? 'Added expense' : 'Recorded income';
-        speakOut(`${action} of ${amount} rupees for ${mappedCategory}`);
-        
+        speakMessage(`Income recorded: ${amount} from ${transaction.category}`);
         return true;
     }
     
-    // If no pattern matched
+    // Check for expense
+    match = command.match(expensePattern);
+    if (match) {
+        const amount = parseFloat(match[1]);
+        const category = match[2].trim().toLowerCase();
+        
+        // Map common voice categories to actual categories
+        const categoryMap = {
+            // Expense categories
+            'food': 'Food & Dining',
+            'foods': 'Food & Dining',
+            'eating': 'Food & Dining',
+            'groceries': 'Food & Dining',
+            'restaurant': 'Food & Dining',
+            'transport': 'Transportation',
+            'travel': 'Transportation',
+            'uber': 'Transportation',
+            'taxi': 'Transportation',
+            'shopping': 'Shopping',
+            'clothes': 'Shopping',
+            'clothing': 'Shopping',
+            'entertainment': 'Entertainment',
+            'movies': 'Entertainment',
+            'games': 'Entertainment',
+            'bills': 'Bills & Utilities',
+            'utilities': 'Bills & Utilities',
+            'health': 'Healthcare',
+            'medical': 'Healthcare',
+            'education': 'Education',
+            'study': 'Education',
+            'books': 'Education',
+            'other': 'Other Expenses'
+        };
+        
+        // Create transaction object
+        const transaction = {
+            id: Date.now().toString(),
+            type: 'expense',
+            amount: amount,
+            category: categoryMap[category] || category,
+            description: `${category} expense`,
+            date: new Date().toISOString()
+        };
+        
+        console.log('Creating expense transaction:', transaction);
+        
+        // Save transaction
+        saveTransaction(transaction);
+        
+        // Update UI
+        updateSummaryCards();
+        updateTransactionList();
+        updateCharts();
+        
+        // Show success message
+        const responseText = document.getElementById('responseText');
+        if (responseText) {
+            responseText.innerHTML = `
+                <div class="flex items-center justify-center space-x-2 text-green-600 mt-4">
+                    <i class="fas fa-check-circle text-xl"></i>
+                    <span class="font-medium">Expense recorded: ${amount} for ${transaction.category}</span>
+                </div>
+            `;
+        }
+        
+        // Speak confirmation
+        speakMessage(`Expense recorded: ${amount} for ${transaction.category}`);
+        return true;
+    }
+    
+    // If no pattern matches, show error
     const responseText = document.getElementById('responseText');
     if (responseText) {
         responseText.innerHTML = `
             <div class="flex items-center justify-center space-x-2 text-red-600 mt-4">
                 <i class="fas fa-exclamation-circle text-xl"></i>
-                <span class="font-medium">Sorry, I couldn't understand that command. Try saying something like "spent 200 on food" or "received 500 for salary"</span>
+                <span class="font-medium">Sorry, I couldn't understand that command. Try saying something like:</span>
+            </div>
+            <div class="mt-2 text-gray-600">
+                <ul class="list-disc list-inside">
+                    <li>"spent 200 on food"</li>
+                    <li>"received 5000 from salary"</li>
+                    <li>"got 2000 from freelance"</li>
+                    <li>"earned 1000 from business"</li>
+                </ul>
             </div>
         `;
     }
     
+    // Speak error message
+    speakMessage("Sorry, I couldn't understand that command. Please try again with a valid command format.");
     return false;
 }
 
