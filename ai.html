@@ -1,0 +1,154 @@
+from flask import Flask, request, jsonify, Response
+import re
+from datetime import datetime
+import os
+
+app = Flask(name)
+EXPENSE_FILE = "expenses.txt"
+TOTALS_FILE = "totals.txt"
+
+# 🔍 Extract "spent 200 on food"
+def extract_info(command):
+    match = re.search(r"(spent)\s+(\d+)\s+(in|on)\s+(\w+)", command)
+    if match:
+        return match.group(1), int(match.group(2)), match.group(4)
+    return None, None, None
+
+# 💰 Update total per category
+def update_totals(category, amount):
+    totals = {}
+    if os.path.exists(TOTALS_FILE):
+        with open(TOTALS_FILE, "r") as f:
+            for line in f:
+                cat, total = line.strip().split(":")
+                totals[cat] = int(total)
+
+    totals[category] = totals.get(category, 0) + amount
+
+    with open(TOTALS_FILE, "w") as f:
+        for cat, total in totals.items():
+            f.write(f"{cat}:{total}\n")
+
+    return totals[category]
+
+@app.route('/')
+def home():
+    html = '''
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Maya - Expense Tracker</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background: #f0f4f8;
+                text-align: center;
+                padding-top: 60px;
+            }
+            h1 {
+                color: #333;
+                margin-bottom: 20px;
+            }
+            input, button {
+                padding: 12px;
+                font-size: 16px;
+                margin: 5px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+            }
+            #micButton {
+                background-color: red;
+                color: white;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                border: none;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            #responseText {
+                font-size: 18px;
+                color: #4caf50;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>💸 Talk to Maya — Expense Tracker</h1>
+        <input type="text" id="commandInput" placeholder="Try: spent 200 on snacks" />
+        <button onclick="sendCommand()">Send</button>
+        <button id="startVoice" class="voice-button">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <p id="responseText"></p>
+
+        <script>
+            async function sendCommand() {
+                const command = document.getElementById("commandInput").value;
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ command })
+                });
+
+                const data = await response.json();
+                document.getElementById("responseText").innerText = data.reply || data.error;
+                speakOut(data.reply);
+            }
+
+            function startListening() {
+                const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.lang = "en-US";
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+
+                recognition.start();
+
+                recognition.onresult = function(event) {
+                    const result = event.results[0][0].transcript;
+                    document.getElementById("commandInput").value = result;
+                    sendCommand();
+                };
+
+                recognition.onerror = function(event) {
+                    alert("Mic error: " + event.error);
+                };
+            }
+
+            function speakOut(text) {
+                const synth = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance(text);
+                synth.speak(utterance);
+            }
+        </script>
+    </body>
+    </html>
+    '''
+    return Response(html, mimetype='text/html')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+    command = data.get("command", "").lower()
+
+    with open("voice_log.txt", "a") as f:
+        f.write(f"User said: {command}\n")
+
+    action, amount, category = extract_info(command)
+
+    if action and amount and category:
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        total = update_totals(category, amount)
+
+        with open(EXPENSE_FILE, "a") as f:
+            f.write(f"{now} | {action} ₹{amount} on {category} | Total for {category}: ₹{total}\n")
+
+        return jsonify({
+            "reply": f"✅ Spent ₹{amount} on {category}. New total: ₹{total}"
+        })
+
+    return jsonify({ "reply": "🚫 Couldn't understand. Try saying: 'spent 200 on food'" })
+
+if name == 'main':
+    print("🌐 Maya is live! Visit: http://127.0.0.1:5000")
+    app.run(debug=True)
