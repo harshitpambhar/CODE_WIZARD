@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finova | Premium Finance Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+    <!-- AI Assistant Section (Hidden by Default) -->
+<div id="aiAssistant" class="hidden p-8 text-center bg-white rounded-xl shadow-lg max-w-lg mx-auto">
+    <h1 class="text-2xl font-bold mb-4">💸 Talk to Maya — Expense Tracker</h1>
+    <input type="text" id="commandInput" placeholder="Try: spent 200 on snacks" class="input-glow mb-4 w-full" />
+    <div class="space-x-2">
+        <button onclick="sendCommand()" class="btn-magic">Send</button>
+        <button id="micButton" class="voice-button">
+            <i class="fas fa-microphone"></i>
+        </button>
+    </div>
+    <p id="responseText" class="mt-4 text-green-600 font-medium"></p>
+</div>
+
+    <!-- Background Elements -->
+     
+    <div class="bg-container">
+        <div class="bg-bubble animate-bubbles" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 200px; height: 200px; bottom: 15%; right: 10%; animation-delay: 2s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 150px; height: 150px; top: 60%; left: 20%; animation-delay: 4s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 250px; height: 250px; bottom: 5%; left: 15%; animation-delay: 1s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 180px; height: 180px; top: 20%; right: 15%; animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="max-w-md w-full mx-4">
+        
+        <!-- Animated Logo -->
+        <div class="text-center mb-10 animate-fade-in" style="animation-delay: 0.1s">
+            <div class="w-24 h-24 bg-gradient-to-br from-indigo-600 to-purple-500 rounded-2xl flex items-center justify-center shadow-xl mx-auto mb-5 animate-float">
+                <i class="fas fa-coins text-white text-4xl"></i>
+            </div>
+            <!-- <h1 class="text-4xl font-bold text-gray-800 font-serif">Finova</h1> -->
+            <h1 class="text-4xl font-bold text-white font-serif">Finova</h1>
+<p class="text-neutral-200 mt-2 text-lg">Your gateway to financial freedom</p>
+
+        </div>
+        
+        <!-- Auth Card -->
+        <div class="glass-card rounded-3xl shadow-2xl overflow-hidden animate-fade-in" style="animation-delay: 0.2s">
+            <!-- Form Tabs -->
+            <div class="flex border-b border-gray-100">
+                <button id="loginTabBtn" class="flex-1 py-5 font-medium text-gray-700 tab-underline active">
+                    <span class="relative z-10">Sign In</span>
+                </button>
+                <button id="signupTabBtn" class="flex-1 py-5 font-medium text-gray-500 tab-underline">
+                    <span class="relative z-10">Register</span>
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="p-8 space-y-6">
+                <div class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-700">Email Address</label>
+                        <div class="relative">
+                            <input type="email" required class="input-glow w-full px-5 py-3.5 border rounded-xl pl-12 focus:outline-none" placeholder="your@email.com">
+                            <i class="fas fa-envelope absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-sm font-medium text-gray-700">Password</label>
+                            <a href="#" id="forgotPasswordLink" class="text-xs text-indigo-600 hover:underline transition-colors">Forgot password?</a>
+                        </div>
+                        <div class="relative">
+                            <input type="password" required class="input-glow w-full px-5 py-3.5 border rounded-xl pl-12 focus:outline-none" placeholder="••••••••">
+                            <i class="fas fa-lock absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div id="rememberCheckbox" class="custom-checkbox cursor-pointer"></div>
+                        <label for="rememberCheckbox" class="text-sm text-gray-700 cursor-pointer">Remember me</label>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <button type="submit" class="btn-magic w-full bg-indigo-600 text-white py-2 px-4 rounded-lg flex items-center justify-center">
+                        <span id="loginSpinner" class="hidden mr-2">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                    </span>
+                        Login
+                </button>
+                </div>
+                
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <svg class="h-5 w-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        Facebook
+                    </button>
+                    <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+                        </svg>
+                        Apple
+                    </button>
+                    <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                        GitHub
+                    </button>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-sm text-gray-500">
+                        Don't have an account? <a href="#" class="text-indigo-600 hover:underline">Register</a>
+                    </p>
+                </div>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="hidden p-8 space-y-6">
+                <div class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-700">Full Name</label>
+                        <div class="relative">
+                            <input type="text" required class="input-glow w-full px-5 py-3.5 border rounded-xl pl-12 focus:outline-none" placeholder="John Doe">
+                            <i class="fas fa-user-tag absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-700">Email Address</label>
+                        <div class="relative">
+                            <input type="email" required class="input-glow w-full px-5 py-3.5 border rounded-xl pl-12 focus:outline-none" placeholder="your@email.com">
+                            <i class="fas fa-envelope absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-700">Password</label>
+                        <div class="relative">
+                            <input type="password" required class="input-glow w-full px-5 py-3.5 border rounded-xl pl-12 focus:outline-none" placeholder="••••••••">
+                            <i class="fas fa-lock absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Minimum 8 characters with at least one number and symbol</p>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div class="relative">
+                            <input type="password" required class="input-glow w-full px-5 py-3.5 border rounded-xl pl-12 focus:outline-none" placeholder="••••••••">
+                            <i class="fas fa-lock absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-magic w-full bg-gradient-to-r from-indigo-600 to-purple-500 text-white py-4 rounded-xl font-medium relative overflow-hidden">
+                    <span id="signupText" class="relative z-10">Create Account</span>
+                    <span id="signupSpinner" class="hidden absolute inset-0 flex items-center justify-center z-10">
+                        <i class="fas fa-spinner spinner text-white text-lg"></i>
+                    </span>
+                </button>
+                
+                <p class="text-xs text-gray-500 text-center">
+                    By registering, you agree to our <a href="#" class="text-indigo-600 hover:underline">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:underline">Privacy Policy</a>.
+                </p>
+            </form>
+        </div>
+        
+        <!-- Footer -->
+        <div class="text-center mt-8 text-sm text-gray-500 animate-fade-in" style="animation-delay: 0.3s">
+            <p>© 2025 Finova. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="hidden glass-card rounded-3xl shadow-2xl overflow-hidden p-6 space-y-6 animate-fade-in">
+        <!-- Dashboard Navigation -->
+        <div class="dashboard-navigation flex justify-between items-center mb-8">
+            <div class="flex items-center space-x-4">
+                <button id="profileBtn" class="profile-btn flex items-center space-x-2 text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-all duration-300">
+                    <i class="fas fa-user-circle text-xl"></i>
+                    <span>Profile</span>
+                </button>
+                <div class="relative">
+                    <button id="menuBtn" class="menu-btn flex items-center space-x-2 text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-all duration-300">
+                        <i class="fas fa-bars text-xl"></i>
+                        <span>Menu</span>
+                    </button>
+                    <div id="menuDropdown" class="menu-dropdown hidden absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50">
+                        <a href="#" class="menu-item flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" data-tab="expenses">
+                            <i class="fas fa-wallet"></i>
+                            <span>Personal Expenses</span>
+                        </a>
+                        <a href="#" class="menu-item flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" data-tab="groups">
+                            <i class="fas fa-users"></i>
+                            <span>Group Expenses</span>
+                        </a>
+                        <a href="#" class="menu-item flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" data-tab="travel">
+                            <i class="fas fa-plane"></i>
+                            <span>Travel Budget</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button id="logoutBtn" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-all duration-300">
+        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+    </button>
+</div>
+
+        <!-- Content Sections -->
+        <div class="content-sections">
+            <!-- Personal Expenses Section -->
+            <div id="expenses-tab" class="tab-content">
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="glass-card p-4 rounded-xl">
+                        <h3 class="text-lg font-semibold">Total Spent</h3>
+                        <p class="text-2xl font-bold text-red-600" id="totalSpent">₹0</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <h3 class="text-lg font-semibold">Total Received</h3>
+                        <p class="text-2xl font-bold text-green-600" id="totalReceived">₹0</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <h3 class="text-lg font-semibold">Monthly Budget</h3>
+                        <p class="text-2xl font-bold text-indigo-600" id="monthlyBudget">₹0</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <h3 class="text-lg font-semibold">Balance</h3>
+                        <p class="text-2xl font-bold text-orange-600" id="balance">₹0</p>
+                    </div>
+                </div>
+
+                <!-- Transaction Form -->
+                <div class="glass-card p-6 rounded-xl mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Add Transaction</h3>
+                    <form id="transactionForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+                                <label class="block text-sm text-gray-700">Type</label>
+                                <select id="transactionType" class="w-full border px-4 py-2 rounded-lg input-glow">
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+      </div>
+        <div>
+          <label class="block text-sm text-gray-700">Amount (₹)</label>
+          <input type="number" id="amount" required class="w-full border px-4 py-2 rounded-lg input-glow" placeholder="500">
+        </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-700">Category</label>
+          <select id="category" class="w-full border px-4 py-2 rounded-lg input-glow">
+                                    <optgroup label="Expenses">
+                                        <option value="food">Food & Dining</option>
+                                        <option value="transport">Transportation</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="entertainment">Entertainment</option>
+                                        <option value="bills">Bills & Utilities</option>
+                                        <option value="health">Healthcare</option>
+                                        <option value="education">Education</option>
+                                        <option value="other_expense">Other Expenses</option>
+                                    </optgroup>
+                                    <optgroup label="Income">
+                                        <option value="salary">Salary</option>
+                                        <option value="freelance">Freelance</option>
+                                        <option value="investments">Investments</option>
+                                        <option value="gifts">Gifts</option>
+                                        <option value="other_income">Other Income</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-700">Date</label>
+                                <input type="date" id="date" required class="w-full border px-4 py-2 rounded-lg input-glow">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-700">Description</label>
+                            <input type="text" id="description" required class="w-full border px-4 py-2 rounded-lg input-glow" placeholder="e.g. Monthly salary, Dinner at restaurant">
+                        </div>
+                        <button type="submit" class="btn-magic bg-indigo-500 text-white py-2 px-4 rounded-xl">Add Transaction</button>
+                    </form>
+                </div>
+
+                <!-- Graphs Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">Expense by Category</h3>
+                            <select id="categoryChartPeriod" class="border px-3 py-1 rounded-lg text-sm">
+                                <option value="day">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="year">This Year</option>
+                                <option value="all">All Time</option>
+                            </select>
+                        </div>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">Income vs Expenses</h3>
+                            <select id="trendChartPeriod" class="border px-3 py-1 rounded-lg text-sm">
+                                <option value="day">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="year">This Year</option>
+                                <option value="all">All Time</option>
+                            </select>
+                        </div>
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="glass-card p-4 rounded-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">Transaction History</h3>
+                        <div class="flex space-x-2">
+                            <select id="historyFilter" class="border px-3 py-1 rounded-lg text-sm">
+                                <option value="all">All Transactions</option>
+                                <option value="expense">Expenses Only</option>
+                                <option value="income">Income Only</option>
+                            </select>
+                            <select id="historySort" class="border px-3 py-1 rounded-lg text-sm">
+                                <option value="date_desc">Newest First</option>
+                                <option value="date_asc">Oldest First</option>
+                                <option value="amount_desc">Highest Amount</option>
+                                <option value="amount_asc">Lowest Amount</option>
+          </select>
+        </div>
+      </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-gray-600">
+                                    <th class="py-2">Date</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionList">
+                                <!-- Transactions will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group Expenses Section -->
+            <div id="groups-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Group Creation Form -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Create a Group</h2>
+                        <form id="groupForm" class="space-y-4">
+                            <div>
+                                <label for="groupName" class="block text-sm font-medium text-gray-700">Group Name</label>
+                                <input type="text" id="groupName" name="groupName" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="groupMembers" class="block text-sm font-medium text-gray-700">Group Members (comma separated)</label>
+                                <input type="text" id="groupMembers" name="groupMembers" required placeholder="John, Jane, Mike"
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Create Group
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Group Expense Form -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Add Group Expense</h2>
+                        <form id="groupExpenseForm" class="space-y-4">
+                            <div>
+                                <label for="expenseGroup" class="block text-sm font-medium text-gray-700">Select Group</label>
+                                <select id="expenseGroup" name="expenseGroup" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="">Select a group</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="paidBy" class="block text-sm font-medium text-gray-700">Paid By</label>
+                                <select id="paidBy" name="paidBy" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="">Select a member</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="expenseAmount" class="block text-sm font-medium text-gray-700">Amount</label>
+                                <input type="number" id="expenseAmount" name="expenseAmount" required min="0" step="0.01"
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="expenseDescription" class="block text-sm font-medium text-gray-700">Description</label>
+                                <input type="text" id="expenseDescription" name="expenseDescription" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="expenseDate" class="block text-sm font-medium text-gray-700">Date</label>
+                                <input type="date" id="expenseDate" name="expenseDate" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Add Expense
+                            </button>
+    </form>
+                    </div>
+                </div>
+
+                <!-- Group List -->
+                <div class="mt-8">
+                    <h2 class="text-xl font-semibold mb-4">Your Groups</h2>
+                    <div id="groupList" class="space-y-4">
+                        <!-- Groups will be displayed here -->
+                    </div>
+                </div>
+
+                <!-- Group Expenses and Settlements -->
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4">Group Expenses</h2>
+                        <div id="groupExpenseList" class="space-y-4">
+                            <!-- Group expenses will be displayed here -->
+                        </div>
+                    </div>
+    <div>
+                        <h2 class="text-xl font-semibold mb-4">Settlement Summary</h2>
+                        <div id="groupSettlementList" class="space-y-4">
+                            <!-- Settlement summary will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel Budget Section -->
+            <div id="travel-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- Trip Planning Form -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Plan Your Trip</h2>
+                        <form id="tripPlanningForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="destination" class="block text-sm font-medium text-gray-700">Destination</label>
+                                    <input type="text" id="destination" name="destination" required placeholder="e.g., Goa, Paris, Tokyo"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="tripType" class="block text-sm font-medium text-gray-700">Trip Type</label>
+                                    <select id="tripType" name="tripType" required
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <option value="">Select trip type</option>
+                                        <option value="family">Family Trip</option>
+                                        <option value="friends">Friends Trip</option>
+                                        <option value="business">Business Trip</option>
+                                        <option value="solo">Solo Trip</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+                                    <input type="date" id="startDate" name="startDate" required
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+                                    <input type="date" id="endDate" name="endDate" required
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="travelers" class="block text-sm font-medium text-gray-700">Number of Travelers</label>
+                                    <input type="number" id="travelers" name="travelers" min="1" required
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="budget" class="block text-sm font-medium text-gray-700">Total Budget (₹)</label>
+                                    <input type="number" id="budget" name="budget" min="0" required
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Plan Trip
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Trip Details and Cost Breakdown -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Trip Details</h2>
+                        <div id="tripDetails" class="hidden">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-medium" id="tripTitle">Trip to <span id="tripDestination">Destination</span></h3>
+                                <div class="flex space-x-2">
+                                    <button id="editTripBtn" class="btn-magic bg-gray-500 text-white py-1 px-3 rounded-lg text-sm">
+                                        <i class="fas fa-edit mr-1"></i> Edit
+                                    </button>
+                                    <button id="deleteTripBtn" class="btn-magic bg-red-500 text-white py-1 px-3 rounded-lg text-sm">
+                                        <i class="fas fa-trash mr-1"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div class="glass-card p-4 rounded-xl">
+                                    <h4 class="text-sm font-medium text-gray-500">Duration</h4>
+                                    <p class="text-lg font-bold" id="tripDuration">0 days</p>
+                                </div>
+                                <div class="glass-card p-4 rounded-xl">
+                                    <h4 class="text-sm font-medium text-gray-500">Travelers</h4>
+                                    <p class="text-lg font-bold" id="tripTravelers">0</p>
+                                </div>
+                                <div class="glass-card p-4 rounded-xl">
+                                    <h4 class="text-sm font-medium text-gray-500">Budget</h4>
+                                    <p class="text-lg font-bold" id="tripBudget">₹0</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Cost Breakdown -->
+                            <div class="mb-6">
+                                <h3 class="text-lg font-medium mb-3">Cost Breakdown</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-hotel text-indigo-500 mr-2"></i>
+                                            <span>Accommodation</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="accommodationCost">₹0</span>
+                                            <button class="ml-2 text-indigo-500 hover:text-indigo-700" id="editAccommodationBtn">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-plane text-indigo-500 mr-2"></i>
+                                            <span>Transportation</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="transportationCost">₹0</span>
+                                            <button class="ml-2 text-indigo-500 hover:text-indigo-700" id="editTransportationBtn">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-utensils text-indigo-500 mr-2"></i>
+                                            <span>Food & Dining</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="foodCost">₹0</span>
+                                            <button class="ml-2 text-indigo-500 hover:text-indigo-700" id="editFoodBtn">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-ticket-alt text-indigo-500 mr-2"></i>
+                                            <span>Activities & Entertainment</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="activitiesCost">₹0</span>
+                                            <button class="ml-2 text-indigo-500 hover:text-indigo-700" id="editActivitiesBtn">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-shopping-bag text-indigo-500 mr-2"></i>
+                                            <span>Shopping</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="shoppingCost">₹0</span>
+                                            <button class="ml-2 text-indigo-500 hover:text-indigo-700" id="editShoppingBtn">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-plus-circle text-indigo-500 mr-2"></i>
+                                            <span>Miscellaneous</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="miscCost">₹0</span>
+                                            <button class="ml-2 text-indigo-500 hover:text-indigo-700" id="editMiscBtn">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="border-t border-gray-200 pt-3 mt-3">
+                                        <div class="flex justify-between items-center font-bold">
+                                            <span>Total Estimated Cost</span>
+                                            <span id="totalTripCost">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm mt-1">
+                                            <span>Remaining Budget</span>
+                                            <span id="remainingBudget" class="font-medium">₹0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cost Breakdown Chart -->
+                            <div class="mb-6">
+                                <h3 class="text-lg font-medium mb-3">Cost Distribution</h3>
+                                <canvas id="tripCostChart" height="200"></canvas>
+                            </div>
+                        </div>
+                        <div id="noTripSelected" class="text-center py-8">
+                            <i class="fas fa-plane-departure text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-500">No trip selected. Create a new trip or select an existing one.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Search -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Hotel Search</h2>
+                        <form id="hotelSearchForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="hotelLocation" class="block text-sm font-medium text-gray-700">Location</label>
+                                    <input type="text" id="hotelLocation" name="hotelLocation" placeholder="Enter city or area"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="checkIn" class="block text-sm font-medium text-gray-700">Check-in Date</label>
+                                    <input type="date" id="checkIn" name="checkIn"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="checkOut" class="block text-sm font-medium text-gray-700">Check-out Date</label>
+                                    <input type="date" id="checkOut" name="checkOut"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="guests" class="block text-sm font-medium text-gray-700">Guests</label>
+                                    <input type="number" id="guests" name="guests" min="1" value="2"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="rooms" class="block text-sm font-medium text-gray-700">Rooms</label>
+                                    <input type="number" id="rooms" name="rooms" min="1" value="1"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="maxPrice" class="block text-sm font-medium text-gray-700">Max Price per Night (₹)</label>
+                                    <input type="number" id="maxPrice" name="maxPrice" min="0" value="5000"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Search Hotels
+                            </button>
+                        </form>
+                        
+                        <!-- Hotel Results -->
+                        <div id="hotelResults" class="mt-6 hidden">
+                            <h3 class="text-lg font-medium mb-3">Available Hotels</h3>
+                            <div id="hotelList" class="space-y-4">
+                                <!-- Hotel cards will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transportation Options -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Transportation Options</h2>
+                        <form id="transportSearchForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="fromLocation" class="block text-sm font-medium text-gray-700">From</label>
+                                    <input type="text" id="fromLocation" name="fromLocation" placeholder="Enter departure city"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="toLocation" class="block text-sm font-medium text-gray-700">To</label>
+                                    <input type="text" id="toLocation" name="toLocation" placeholder="Enter destination city"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="travelDate" class="block text-sm font-medium text-gray-700">Travel Date</label>
+                                    <input type="date" id="travelDate" name="travelDate"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="passengers" class="block text-sm font-medium text-gray-700">Passengers</label>
+                                    <input type="number" id="passengers" name="passengers" min="1" value="1"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button type="button" id="searchFlightsBtn" class="btn-magic flex-1">
+                                    <i class="fas fa-plane mr-2"></i> Flights
+                                </button>
+                                <button type="button" id="searchTrainsBtn" class="btn-magic flex-1">
+                                    <i class="fas fa-train mr-2"></i> Trains
+                                </button>
+                                <button type="button" id="searchBusesBtn" class="btn-magic flex-1">
+                                    <i class="fas fa-bus mr-2"></i> Buses
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Transportation Results -->
+                        <div id="transportResults" class="mt-6 hidden">
+                            <h3 class="text-lg font-medium mb-3">Available Options</h3>
+                            <div id="transportList" class="space-y-4">
+                                <!-- Transport options will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Restaurant & Food Options -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Restaurant & Food Options</h2>
+                        <form id="restaurantSearchForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="restaurantLocation" class="block text-sm font-medium text-gray-700">Location</label>
+                                    <input type="text" id="restaurantLocation" name="restaurantLocation" placeholder="Enter city or area"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="cuisineType" class="block text-sm font-medium text-gray-700">Cuisine Type</label>
+                                    <select id="cuisineType" name="cuisineType"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <option value="">All Cuisines</option>
+                                        <option value="indian">Indian</option>
+                                        <option value="chinese">Chinese</option>
+                                        <option value="italian">Italian</option>
+                                        <option value="mexican">Mexican</option>
+                                        <option value="japanese">Japanese</option>
+                                        <option value="thai">Thai</option>
+                                        <option value="american">American</option>
+                                        <option value="mediterranean">Mediterranean</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="priceRange" class="block text-sm font-medium text-gray-700">Price Range</label>
+                                    <select id="priceRange" name="priceRange"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <option value="all">All Prices</option>
+                                        <option value="budget">Budget (₹0-₹500)</option>
+                                        <option value="moderate">Moderate (₹500-₹1000)</option>
+                                        <option value="high">High (₹1000-₹2000)</option>
+                                        <option value="luxury">Luxury (₹2000+)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="rating" class="block text-sm font-medium text-gray-700">Minimum Rating</label>
+                                    <select id="rating" name="rating"
+                                        class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        <option value="0">Any Rating</option>
+                                        <option value="3">3+ Stars</option>
+                                        <option value="4">4+ Stars</option>
+                                        <option value="4.5">4.5+ Stars</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Search Restaurants
+                            </button>
+                        </form>
+                        
+                        <!-- Restaurant Results -->
+                        <div id="restaurantResults" class="mt-6 hidden">
+                            <h3 class="text-lg font-medium mb-3">Available Restaurants</h3>
+                            <div id="restaurantList" class="space-y-4">
+                                <!-- Restaurant cards will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trip Summary -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Trip Summary</h2>
+                        <div id="tripSummary" class="hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="text-lg font-medium mb-3">Itinerary</h3>
+                                    <div id="itineraryTimeline" class="space-y-4">
+                                        <!-- Itinerary items will be dynamically added here -->
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium mb-3">Cost Summary</h3>
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between">
+                                            <span>Accommodation:</span>
+                                            <span id="summaryAccommodation">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Transportation:</span>
+                                            <span id="summaryTransportation">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Food & Dining:</span>
+                                            <span id="summaryFood">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Activities:</span>
+                                            <span id="summaryActivities">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Shopping:</span>
+                                            <span id="summaryShopping">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Miscellaneous:</span>
+                                            <span id="summaryMisc">₹0</span>
+                                        </div>
+                                        <div class="border-t border-gray-200 pt-2 mt-2 font-bold">
+                                            <div class="flex justify-between">
+                                                <span>Total Cost:</span>
+                                                <span id="summaryTotal">₹0</span>
+                                            </div>
+                                            <div class="flex justify-between text-sm mt-1">
+                                                <span>Remaining Budget:</span>
+                                                <span id="summaryRemaining" class="font-medium">₹0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button id="exportTripBtn" class="btn-magic w-full">
+                                    <i class="fas fa-file-export mr-2"></i> Export Trip Plan
+                                </button>
+                            </div>
+                        </div>
+                        <div id="noTripSummary" class="text-center py-8">
+                            <i class="fas fa-clipboard-list text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-500">No trip selected. Create a new trip or select an existing one.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profile-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- User Profile -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">User Profile</h2>
+                        <form id="profileForm" class="space-y-4">
+                            <div>
+                                <label for="userName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" id="userName" name="userName" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="userEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="userEmail" name="userEmail" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="userMobile">
+                                    Mobile Number
+                                </label>
+                                <div class="flex space-x-2">
+                                    <select id="countryCode" class="input-glow px-3 py-2 border rounded-lg bg-white/10 backdrop-blur-lg">
+                                        <option value="+1">+1 (US/CA)</option>
+                                        <option value="+44">+44 (UK)</option>
+                                        <option value="+91">+91 (IN)</option>
+                                        <option value="+81">+81 (JP)</option>
+                                        <option value="+86">+86 (CN)</option>
+                                        <option value="+49">+49 (DE)</option>
+                                        <option value="+33">+33 (FR)</option>
+                                        <option value="+61">+61 (AU)</option>
+                                        <option value="+55">+55 (BR)</option>
+                                        <option value="+7">+7 (RU)</option>
+                                    </select>
+                                    <input type="tel" id="userMobile" name="mobile" 
+                                        class="input-glow w-full px-3 py-2 border rounded-lg" 
+                                        placeholder="Enter your mobile number">
+                                    <button type="button" id="verifyMobileBtn" class="btn-magic bg-indigo-500 text-white px-4 py-2 rounded-lg whitespace-nowrap">
+                                        Verify
+                                    </button>
+                                </div>
+                                <div id="mobileVerificationStatus" class="mt-2"></div>
+                            </div>
+                            <div>
+                                <label for="userAddress" class="block text-sm font-medium text-gray-700">Address</label>
+                                <textarea id="userAddress" name="userAddress" rows="2"
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Save Profile
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Bank Details -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <h2 class="text-xl font-semibold mb-4">Bank Details</h2>
+                        <form id="bankDetailsForm" class="space-y-4">
+                            <div>
+                                <label for="bankName" class="block text-sm font-medium text-gray-700">Bank Name</label>
+                                <input type="text" id="bankName" name="bankName" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="accountNumber" class="block text-sm font-medium text-gray-700">Account Number</label>
+                                <input type="text" id="accountNumber" name="accountNumber" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="ifscCode" class="block text-sm font-medium text-gray-700">IFSC Code</label>
+                                <input type="text" id="ifscCode" name="ifscCode" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="accountType" class="block text-sm font-medium text-gray-700">Account Type</label>
+                                <select id="accountType" name="accountType" required
+                                    class="input-glow mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="">Select account type</option>
+                                    <option value="savings">Savings</option>
+                                    <option value="current">Current</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="autoSync" name="autoSync" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <label for="autoSync" class="ml-2 block text-sm text-gray-700">
+                                    Automatically sync bank transactions
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-magic w-full">
+                                Save Bank Details
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Notification Preferences -->
+                <div class="mt-8 glass-card p-6 rounded-xl">
+                    <h2 class="text-xl font-semibold mb-4">Notification Preferences</h2>
+                    <form id="notificationForm" class="space-y-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="smsAlerts" name="smsAlerts" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="smsAlerts" class="ml-2 block text-sm text-gray-700">
+                                Receive SMS alerts for transactions
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="emailAlerts" name="emailAlerts" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="emailAlerts" class="ml-2 block text-sm text-gray-700">
+                                Receive email alerts for transactions
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="budgetAlerts" name="budgetAlerts" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="budgetAlerts" class="ml-2 block text-sm text-gray-700">
+                                Receive alerts when approaching budget limits
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="groupExpenseAlerts" name="groupExpenseAlerts" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="groupExpenseAlerts" class="ml-2 block text-sm text-gray-700">
+                                Receive alerts for group expenses
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-magic w-full">
+                            Save Preferences
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Voice Assistant -->
+        <div class="fixed bottom-6 right-6">
+            <button id="startVoice" class="btn-magic bg-purple-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all">
+                <i class="fas fa-microphone text-xl"></i>
+      </button>
+            <div id="voiceStatus" class="hidden glass-card p-4 rounded-xl mt-4 text-sm">
+                Listening... Say things like:
+                <ul class="mt-2 space-y-1 text-gray-600">
+                    <li>"Add expense 500 rupees for food"</li>
+                    <li>"Split 1000 rupees in Weekend Trip group"</li>
+                    <li>"Show my travel budget for Goa"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Add Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

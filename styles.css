@@ -1,0 +1,1677 @@
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-slide-out {
+    animation: slideOut 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); }
+    25% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+    50% { transform: translateY(-40px) translateX(-10px) rotate(-5deg); }
+    75% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+    100% { transform: translateY(0) translateX(0) rotate(0deg); }
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes ripple {
+    from { opacity: 0; }
+    to { opacity: 0; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Background elements animation */
+@keyframes moveBubbles {
+    from { opacity: 0; }
+    to { opacity: 0; }
+}
+
+/* Animation classes */
+.animate-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-bubbles {
+    display: none;
+}
+
+/* Background styling */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #ffffff !important;
+}
+
+.bg-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff !important;
+}
+
+/* Remove existing background bubbles and patterns */
+.bg-bubble,
+.bg-container::after,
+body::before {
+    display: none;
+}
+
+/* Glass card effect */
+.glass-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Global text colors */
+.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-500 {
+    color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+label, p, a, h1, h2, h3, h4, h5, h6 {
+    color: #1a1a1a !important;
+}
+
+input, textarea {
+    color: #000000 !important;
+    background: #ffffff !important;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Input text color */
+.input-glow {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    color: #1a1a1a !important;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.input-glow:focus {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2) !important;
+    outline: none;
+}
+
+.input-glow::placeholder {
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Label colors */
+label {
+    color: #1a1a1a !important;
+}
+
+/* Social login text */
+.social-login p {
+    color: #1a1a1a !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+/* Links */
+a {
+    color: #4f46e5 !important;
+}
+
+a:hover {
+    color: #6366f1 !important;
+}
+
+/* Error message */
+.error-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #dc2626 !important;
+}
+
+/* Success message */
+.success-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #059669 !important;
+}
+
+/* Remember me text */
+.remember-me {
+    color: #1a1a1a !important;
+}
+
+/* Forgot password link */
+.forgot-password {
+    color: #4f46e5 !important;
+}
+
+.forgot-password:hover {
+    color: #6366f1 !important;
+}
+
+/* Menu items */
+.menu-item {
+    color: #1a1a1a !important;
+}
+
+.menu-item:hover {
+    color: #4f46e5 !important;
+}
+
+/* Navigation buttons */
+.nav-btn {
+    color: #1a1a1a !important;
+    background: #ffffff !important;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #f8f9fa !important;
+    color: #4f46e5 !important;
+}
+
+.nav-btn.active {
+    background-color: #EEF2FF !important;
+    color: #4f46e5 !important;
+}
+
+/* Particle Styles */
+.particle {
+    display: none;
+}
+
+.connection-line {
+    display: none;
+}
+
+@keyframes floatParticle {
+    from { opacity: 0; }
+    to { opacity: 0; }
+}
+
+@keyframes pulseLine {
+    from { opacity: 0; }
+    to { opacity: 0; }
+}
+
+.particle svg,
+.particle:hover {
+    display: none;
+}
+
+/* Button effects */
+.btn-magic {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-magic:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* Input field effects */
+.input-glow {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.input-glow:focus {
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Social login buttons styling */
+.social-btn {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    color: #1a1a1a !important;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    background: #f8f9fa !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Provider-specific colors */
+.social-btn[data-provider="Google"],
+.social-btn[data-provider="Facebook"],
+.social-btn[data-provider="Apple"],
+.social-btn[data-provider="GitHub"] {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Social button icons */
+.social-btn i {
+    font-size: 1.25rem;
+    color: #1a1a1a !important;
+}
+
+/* Social buttons container */
+.social-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Social login section */
+.social-login {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.social-login p {
+    color: #1a1a1a !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+/* Tab underline animation */
+.tab-underline {
+    position: relative;
+}
+
+.tab-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.tab-underline.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Loading spinner */
+.spinner {
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Checkbox styling */
+.custom-checkbox {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox.checked {
+    border-color: #4f46e5;
+    background-color: #4f46e5;
+}
+
+.custom-checkbox.checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    color: #ffffff;
+    font-size: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Navigation buttons */
+.nav-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #1a1a1a;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.nav-btn:hover {
+    background-color: #f8f9fa;
+    color: #4F46E5;
+}
+
+.nav-btn.active {
+    background-color: #EEF2FF;
+    color: #4F46E5;
+    font-weight: 500;
+}
+
+.menu-btn {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.menu-btn:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    min-width: 200px;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+.menu-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #f3f4f6;
+    color: #4f46e5;
+}
+
+.menu-item i {
+    font-size: 1.25rem;
+    color: #6b7280;
+}
+
+.menu-item:hover i {
+    color: #4f46e5;
+}
+
+/* Profile Button Styles */
+.profile-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.profile-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.profile-btn:active {
+    transform: translateY(0);
+}
+
+.profile-btn i {
+    transition: transform 0.3s ease;
+}
+
+.profile-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Mobile Verification Status */
+#mobileVerificationStatus {
+    min-height: 24px;
+    transition: all 0.3s ease;
+}
+
+#mobileVerificationStatus p {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+#mobileVerificationStatus .text-green-500 {
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+#mobileVerificationStatus .text-yellow-500 {
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+#mobileVerificationStatus .text-red-500 {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Bank Details Form */
+#bankDetailsForm input[type="text"],
+#bankDetailsForm select {
+    transition: all 0.3s ease;
+}
+
+#bankDetailsForm input[type="text"]:focus,
+#bankDetailsForm select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Notification Preferences */
+#notificationForm .flex {
+    transition: all 0.2s ease;
+}
+
+#notificationForm .flex:hover {
+    background-color: rgba(99, 102, 241, 0.05);
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+#notificationForm input[type="checkbox"] {
+    transition: all 0.2s ease;
+}
+
+#notificationForm input[type="checkbox"]:checked {
+    background-color: #6366f1;
+    border-color: #6366f1;
+}
+
+/* Profile Section Animation */
+#profile-tab {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Social Account Modal Styles */
+#socialAccountModal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#socialAccountModal .animate-slide-in {
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+#socialAccountModal .translate-y-0 {
+    transform: translateY(0);
+}
+
+#socialAccountModal .opacity-100 {
+    opacity: 1;
+}
+
+/* Social Account Item Hover Effects */
+#socialAccountModal .account-item:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+}
+
+/* Social Account Avatar Styles */
+#socialAccountModal .account-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Social Account Modal Close Button */
+#socialAccountModal .close-button {
+    transition: transform 0.2s ease;
+}
+
+#socialAccountModal .close-button:hover {
+    transform: rotate(90deg);
+}
+
+/* Social Account Modal Scrollbar */
+#socialAccountModal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#socialAccountModal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#socialAccountModal .modal-body::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 10px;
+}
+
+#socialAccountModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Social Account Provider Colors */
+#socialAccountModal[data-provider="Google"] .header-title,
+#socialAccountModal[data-provider="Facebook"] .header-title,
+#socialAccountModal[data-provider="Apple"] .header-title,
+#socialAccountModal[data-provider="GitHub"] .header-title {
+    color: #1a1a1a;
+}
+
+/* Social Account Add Button */
+#socialAccountModal .add-account-button {
+    transition: background-color 0.2s ease;
+}
+
+#socialAccountModal .add-account-button:hover {
+    background-color: #000000;
+}
+
+/* Social Account Modal Animation */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.animate-modal-fade-in {
+    animation: modalFadeIn 0.3s ease forwards;
+}
+
+.animate-modal-slide-in {
+    animation: modalSlideIn 0.3s ease forwards;
+}
+
+/* Forgot Password Modal Styles */
+#forgotPasswordModal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#forgotPasswordModal .animate-slide-in {
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+#forgotPasswordModal.opacity-100 {
+    opacity: 1;
+}
+
+#forgotPasswordModal .translate-y-0 {
+    transform: translateY(0);
+}
+
+#forgotPasswordModal .btn-magic {
+    position: relative;
+    overflow: hidden;
+}
+
+#forgotPasswordModal .btn-magic:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+#forgotPasswordModal .btn-magic:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+#forgotPasswordModal .input-glow {
+    transition: all 0.3s ease;
+}
+
+#forgotPasswordModal .input-glow:focus {
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Login Page Enhancements */
+body {
+    background: url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=2071&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background: rgba(15, 23, 42, 0.6);
+    z-index: -1;
+}
+
+/* Enhanced Logo */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Finance-themed decorative elements */
+.glass-card::before,
+.glass-card::after {
+    display: none;
+}
+
+/* Finance-themed background elements */
+.bg-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    z-index: -1;
+}
+
+/* Finance-themed floating elements */
+.bg-container::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 150px;
+    height: 150px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: float 20s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* Add a second finance-themed floating element */
+.bg-container .bg-bubble:nth-child(1) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-container .bg-bubble:nth-child(2) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-container .bg-bubble:nth-child(3) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-container .bg-bubble:nth-child(4) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-container .bg-bubble:nth-child(5) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Login page specific text colors */
+.login-box h2 {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.login-box label {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.login-box .input-glow {
+    color: #ffffff !important;
+}
+
+.login-box .input-glow::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.login-box .text-gray-600,
+.login-box .text-gray-700,
+.login-box .text-gray-800 {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.login-box a {
+    color: #a5b4fc !important;
+}
+
+.login-box a:hover {
+    color: #c4b5fd !important;
+}
+
+.login-box .social-login p {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.login-box .remember-me {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.login-box .forgot-password {
+    color: #a5b4fc !important;
+}
+
+.login-box .forgot-password:hover {
+    color: #c4b5fd !important;
+}
+
+.login-box .error-message {
+    color: #fca5a5 !important;
+}
+
+.login-box .success-message {
+    color: #6ee7b7 !important;
+}
+
+/* Social login buttons text */
+.social-btn {
+    color: #1a1a1a !important;
+}
+
+/* Social account modal input placeholders */
+#socialAccountModal input::placeholder {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+#socialAccountModal .input-glow::placeholder {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Social account modal input text */
+#socialAccountModal input {
+    color: #000000 !important;
+}
+
+#socialAccountModal .input-glow {
+    color: #000000 !important;
+}
+
+/* Social account modal text colors */
+#socialAccountModal .text-gray-600,
+#socialAccountModal .text-gray-700,
+#socialAccountModal .text-gray-800 {
+    color: #000000 !important;
+}
+
+#socialAccountModal label {
+    color: #000000 !important;
+}
+
+/* Modal styles */
+.modal-content {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Form elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #000000 !important;
+}
+
+/* Messages */
+.error-message, .success-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #dc2626 !important;
+}
+
+.success-message {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #059669 !important;
+}
+
+/* Account items */
+.account-item {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.account-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu items */
+.menu-item {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.menu-item:hover {
+    color: #ffffff;
+}
+
+.menu-item.active {
+    background-color: #EEF2FF;
+    color: #4F46E5;
+}
+
+.group:hover .menu-dropdown {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Profile Button Styles */
+.profile-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.profile-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.profile-btn:active {
+    transform: translateY(0);
+}
+
+.profile-btn i {
+    transition: transform 0.3s ease;
+}
+
+.profile-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Mobile Verification Status */
+#mobileVerificationStatus {
+    min-height: 24px;
+    transition: all 0.3s ease;
+}
+
+#mobileVerificationStatus p {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+#mobileVerificationStatus .text-green-500 {
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+#mobileVerificationStatus .text-yellow-500 {
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+#mobileVerificationStatus .text-red-500 {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Bank Details Form */
+#bankDetailsForm input[type="text"],
+#bankDetailsForm select {
+    transition: all 0.3s ease;
+}
+
+#bankDetailsForm input[type="text"]:focus,
+#bankDetailsForm select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Notification Preferences */
+#notificationForm .flex {
+    transition: all 0.2s ease;
+}
+
+#notificationForm .flex:hover {
+    background-color: rgba(99, 102, 241, 0.05);
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+#notificationForm input[type="checkbox"] {
+    transition: all 0.2s ease;
+}
+
+#notificationForm input[type="checkbox"]:checked {
+    background-color: #6366f1;
+    border-color: #6366f1;
+}
+
+/* Profile Section Animation */
+#profile-tab {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Social Account Modal Styles */
+#socialAccountModal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#socialAccountModal .animate-slide-in {
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+#socialAccountModal .translate-y-0 {
+    transform: translateY(0);
+}
+
+#socialAccountModal .opacity-100 {
+    opacity: 1;
+}
+
+/* Social Account Item Hover Effects */
+#socialAccountModal .account-item:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+}
+
+/* Social Account Avatar Styles */
+#socialAccountModal .account-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Social Account Modal Close Button */
+#socialAccountModal .close-button {
+    transition: transform 0.2s ease;
+}
+
+#socialAccountModal .close-button:hover {
+    transform: rotate(90deg);
+}
+
+/* Social Account Modal Scrollbar */
+#socialAccountModal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#socialAccountModal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#socialAccountModal .modal-body::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 10px;
+}
+
+#socialAccountModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Social Account Provider Colors */
+#socialAccountModal[data-provider="Google"] .header-title,
+#socialAccountModal[data-provider="Facebook"] .header-title,
+#socialAccountModal[data-provider="Apple"] .header-title,
+#socialAccountModal[data-provider="GitHub"] .header-title {
+    color: #1a1a1a;
+}
+
+/* Social Account Add Button */
+#socialAccountModal .add-account-button {
+    transition: background-color 0.2s ease;
+}
+
+#socialAccountModal .add-account-button:hover {
+    background-color: #000000;
+}
+
+/* Social Account Modal Animation */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.animate-modal-fade-in {
+    animation: modalFadeIn 0.3s ease forwards;
+}
+
+.animate-modal-slide-in {
+    animation: modalSlideIn 0.3s ease forwards;
+}
+
+/* Forgot Password Modal Styles */
+#forgotPasswordModal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#forgotPasswordModal .animate-slide-in {
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+#forgotPasswordModal.opacity-100 {
+    opacity: 1;
+}
+
+#forgotPasswordModal .translate-y-0 {
+    transform: translateY(0);
+}
+
+#forgotPasswordModal .btn-magic {
+    position: relative;
+    overflow: hidden;
+}
+
+#forgotPasswordModal .btn-magic:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+#forgotPasswordModal .btn-magic:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+#forgotPasswordModal .input-glow {
+    transition: all 0.3s ease;
+}
+
+#forgotPasswordModal .input-glow:focus {
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Global Smooth Transitions */
+* {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Smooth Card Hover Effects */
+.glass-card {
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Smooth Button Transitions */
+.btn-magic {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-magic:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-magic:active {
+    transform: translateY(0);
+}
+
+/* Input Field Animations */
+.input-glow {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-glow:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+/* Menu Dropdown Animation */
+.menu-dropdown {
+    transform-origin: top;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scaleY(0);
+    display: none;
+}
+
+.menu-dropdown.show {
+    opacity: 1;
+    transform: scaleY(1);
+    display: block;
+}
+
+/* Remove hover-based display */
+.group:hover .menu-dropdown {
+    display: none;
+}
+
+/* Menu button styles */
+.menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.menu-btn:hover {
+    background-color: #4338ca !important;
+    transform: translateY(-1px);
+}
+
+/* Menu items */
+.menu-item {
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #f3f4f6;
+    color: #4f46e5 !important;
+}
+
+.menu-item.active {
+    background-color: #EEF2FF;
+    color: #4F46E5;
+}
+
+/* Tab Switch Animation */
+.tab-content {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.tab-content.hidden {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+/* Chart Animation */
+canvas {
+    transition: all 0.5s ease-in-out;
+}
+
+/* Transaction List Item Animation */
+#transactionList tr {
+    transition: all 0.3s ease-in-out;
+}
+
+#transactionList tr:hover {
+    transform: translateX(5px);
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+/* Profile Button Animation */
+.profile-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Form Group Animation */
+.form-group {
+    transition: all 0.3s ease-in-out;
+}
+
+.form-group:focus-within {
+    transform: translateY(-2px);
+}
+
+/* Modal Animation Improvements */
+.modal-content {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+.modal-content.show {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Checkbox Animation */
+input[type="checkbox"] {
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+    transform: scale(1.1);
+}
+
+/* Social Button Animation */
+.social-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Navigation Animation */
+.nav-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Background Bubble Animation Enhancement */
+.bg-bubble {
+    transition: transform 0.5s ease-in-out;
+}
+
+.bg-bubble:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Mic Button Styles */
+.mic-active {
+    animation: pulse 1.5s infinite;
+    background-color: #4f46e5 !important;
+    color: white !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.mic-active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(79, 70, 229, 0.3);
+    border-radius: 9999px;
+    animation: ripple 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Microphone Button Styles */
+#micButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#micButton:hover {
+    background-color: #e5e7eb;
+    transform: scale(1.05);
+}
+
+#micButton.mic-active {
+    background-color: #f44336;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 10px rgba(244, 67, 54, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
+    }
+}
+
+/* Response Text Styles */
+#responseText {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+/* Voice Status Styles */
+#voiceStatus {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 300px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#voiceStatus.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+#voiceStatus ul {
+    margin-top: 8px;
+    padding-left: 20px;
+}
+
+#voiceStatus li {
+    margin-bottom: 4px;
+}
+
+/* Start Voice Button Styles */
+#startVoice {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #8b5cf6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#startVoice:hover {
+    transform: scale(1.1);
+    background-color: #7c3aed;
+}
+
+#startVoice:active {
+    transform: scale(0.95);
+}
+
+#startVoice.listening {
+    background-color: #ef4444;
+    animation: pulse 1.5s infinite;
+}
+
+/* Voice Recognition Styles */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+    }
+}
+
+#micButton {
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+#micButton:hover {
+    background-color: #e5e7eb;
+    transform: scale(1.05);
+}
+
+#voiceStatus {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+}
+
+#responseText {
+    min-height: 3rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    margin-top: 1rem;
+} 
