@@ -10,17 +10,17 @@
 </head>
 <body class="min-h-screen flex items-center justify-center px-4">
     <!-- AI Assistant Section (Hidden by Default) -->
-<div id="aiAssistant" class="hidden p-8 text-center bg-white rounded-xl shadow-lg max-w-lg mx-auto">
-    <h1 class="text-2xl font-bold mb-4">💸 Talk to Maya — Expense Tracker</h1>
-    <input type="text" id="commandInput" placeholder="Try: spent 200 on snacks" class="input-glow mb-4 w-full" />
-    <div class="space-x-2">
-        <button onclick="sendCommand()" class="btn-magic">Send</button>
-        <button id="micButton" class="voice-button">
-            <i class="fas fa-microphone"></i>
-        </button>
+    <div id="aiAssistant" class="fixed bottom-24 right-6 w-96 glass-card p-4 rounded-xl hidden">
+        <h1 class="text-2xl font-bold mb-4">💸 Talk to Maya — Expense Tracker</h1>
+        <input type="text" id="commandInput" placeholder="Try: spent 200 on snacks" class="input-glow mb-4 w-full" />
+        <div class="space-x-2">
+            <button onclick="sendCommand()" class="btn-magic">Send</button>
+            <button id="micButton" class="voice-button">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+        <p id="responseText" class="mt-4 text-green-600 font-medium"></p>
     </div>
-    <p id="responseText" class="mt-4 text-green-600 font-medium"></p>
-</div>
 
     <!-- Background Elements -->
      
@@ -227,13 +227,22 @@
                             <i class="fas fa-plane"></i>
                             <span>Travel Budget</span>
                         </a>
+                        <a href="#" class="menu-item flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" id="aiChatBotBtn">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Chat Bot</span>
+                        </a>
                     </div>
                 </div>
             </div>
-            <button id="logoutBtn" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-all duration-300">
-        <i class="fas fa-sign-out-alt mr-2"></i>Logout
-    </button>
-</div>
+            <div class="flex items-center space-x-2">
+                <button id="cameraBtn" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-all duration-300">
+                    <i class="fas fa-camera text-xl"></i>
+                </button>
+                <button id="logoutBtn" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-all duration-300">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+        </div>
 
         <!-- Content Sections -->
         <div class="content-sections">
@@ -1011,6 +1020,81 @@
                             Save Preferences
                         </button>
                     </form>
+                </div>
+            </div>
+
+            <!-- AI Chatbot Section -->
+            <div id="ai-chatbot-section" class="hidden">
+                <div class="container mx-auto px-4 py-8">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">AI Expense Assistant</h2>
+                            <div class="flex space-x-4">
+                                <button id="toggleHistoryBtn" class="btn-primary">
+                                    <i class="fas fa-history mr-2"></i>History
+                                </button>
+                                <button id="toggleGraphsBtn" class="btn-primary">
+                                    <i class="fas fa-chart-bar mr-2"></i>Graphs
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Chat Section -->
+                            <div class="lg:col-span-2">
+                                <div class="bg-gray-50 rounded-lg p-4 h-[600px] flex flex-col">
+                                    <div id="chatMessages" class="flex-1 overflow-y-auto mb-4">
+                                        <div class="chat-message ai-message">
+                                            <div class="avatar ai-avatar">
+                                                <i class="fas fa-robot text-white"></i>
+                                            </div>
+                                            <div class="message-bubble ai-bubble">
+                                                <p>Hello! I'm your AI Expense Assistant. How can I help you today?</p>
+                                                <div class="message-time">Just now</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4">
+                                        <input type="text" id="userInput" class="flex-1 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask about your expenses, budget, or savings...">
+                                        <button id="sendBtn" class="btn-primary">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                        <button id="micBtn" class="btn-secondary">
+                                            <i class="fas fa-microphone"></i>
+                                        </button>
+                                    </div>
+                                    <div id="voiceStatus" class="hidden mt-2 text-sm text-gray-500">
+                                        Listening...
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- History and Graphs Section -->
+                            <div class="space-y-6">
+                                <!-- History Tab -->
+                                <div id="historyTab" class="bg-gray-50 rounded-lg p-4">
+                                    <h3 class="text-lg font-semibold mb-4">Recent Transactions</h3>
+                                    <div id="transactionHistory" class="space-y-4">
+                                        <!-- Transactions will be loaded here -->
+                                    </div>
+                                </div>
+
+                                <!-- Graphs Tab -->
+                                <div id="graphsTab" class="hidden bg-gray-50 rounded-lg p-4">
+                                    <h3 class="text-lg font-semibold mb-4">Expense Analysis</h3>
+                                    <canvas id="expenseChart"></canvas>
+                                </div>
+
+                                <!-- Recommendations Section -->
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h3 class="text-lg font-semibold mb-4">AI Recommendations</h3>
+                                    <div id="recommendations" class="space-y-4">
+                                        <!-- Recommendations will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

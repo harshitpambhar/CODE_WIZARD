@@ -126,6 +126,14 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCostBreakdown(currentTrip);
         updateTripSummary(currentTrip);
     }
+
+    // Get camera button element
+    const cameraBtn = document.getElementById('cameraBtn');
+
+    // Add event listener for camera button
+    if (cameraBtn) {
+        cameraBtn.addEventListener('click', handleCamera);
+    }
 });
 
 // Replace the bubble creation functions with a more engaging particle system
@@ -474,12 +482,26 @@ function handleLogin(e) {
 
 // Handle logout
 function handleLogout() {
-    // Hide dashboard and show login container
-    dashboard.classList.add('hidden');
-    document.querySelector('.max-w-md').classList.remove('hidden');
-    
-    // Reset to login tab
-    switchAuthTab('login');
+    // Make a request to the server's logout endpoint
+    fetch('/logout')
+        .then(response => {
+            if (response.ok) {
+                // Hide dashboard and show login container
+                dashboard.classList.add('hidden');
+                document.querySelector('.max-w-md').classList.remove('hidden');
+                
+                // Reset to login tab
+                switchAuthTab('login');
+                
+                // Clear any stored user data
+                localStorage.removeItem('user');
+            } else {
+                console.error('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
 }
 
 // Handle signup form submission
@@ -3096,5 +3118,128 @@ function exportTripPlan() {
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
+}
+
+// Handle camera functionality
+async function handleCamera() {
+    try {
+        // Show loading state
+        const cameraBtn = document.getElementById('cameraBtn');
+        const originalContent = cameraBtn.innerHTML;
+        cameraBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        cameraBtn.disabled = true;
+
+        // Request camera access
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        
+        // Create a video element to capture the image
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.style.display = 'none';
+        document.body.appendChild(video);
+        
+        // Wait for video to be ready
+        await new Promise(resolve => {
+            video.onloadedmetadata = () => {
+                video.play();
+                resolve();
+            };
+        });
+        
+        // Create a canvas to capture the image
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Convert canvas to blob
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95));
+        
+        // Create a preview modal
+        const modal = document.createElement('div');
+        modal.className = 'modal show';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>Preview Image</h3>
+                <img src="${canvas.toDataURL('image/jpeg')}" alt="Captured image" style="max-width: 100%; margin: 10px 0;">
+                <div class="button-group">
+                    <button onclick="retakePhoto()" class="btn-secondary">Retake</button>
+                    <button onclick="savePhoto()" class="btn-primary">Save</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Stop all tracks
+        stream.getTracks().forEach(track => track.stop());
+        
+        // Remove video element
+        document.body.removeChild(video);
+        
+        // Store the blob for saving later
+        window.capturedImageBlob = blob;
+
+        // Reset button state
+        cameraBtn.innerHTML = originalContent;
+        cameraBtn.disabled = false;
+
+    } catch (error) {
+        console.error('Camera error:', error);
+        alert('Failed to access camera: ' + error.message);
+        
+        // Reset button state
+        const cameraBtn = document.getElementById('cameraBtn');
+        cameraBtn.innerHTML = originalContent;
+        cameraBtn.disabled = false;
+    }
+}
+
+function retakePhoto() {
+    // Remove the modal
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.remove();
+    }
+    // Call handleCamera again
+    handleCamera();
+}
+
+function savePhoto() {
+    if (!window.capturedImageBlob) {
+        alert('No image to save!');
+        return;
+    }
+    
+    // Create a FormData object to send the image
+    const formData = new FormData();
+    formData.append('image', window.capturedImageBlob, 'capture.jpg');
+    
+    // Send the image to the server
+    fetch('/upload-image', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Photo saved successfully!');
+        
+        // Remove the modal
+        const modal = document.querySelector('.modal');
+        if (modal) {
+            modal.remove();
+        }
+    })
+    .catch(error => {
+        console.error('Upload error:', error);
+        alert('Failed to save image: ' + error.message);
+    });
 }
 
