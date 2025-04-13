@@ -1,11 +1,25 @@
 @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes slideOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }
 
 .animate-slide-in {
@@ -17,38 +31,84 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes float {
-    0% { transform: translateY(0) translateX(0) rotate(0deg); }
-    25% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
-    50% { transform: translateY(-40px) translateX(-10px) rotate(-5deg); }
-    75% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
-    100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-20px) translateX(10px) rotate(5deg);
+    }
+
+    50% {
+        transform: translateY(-40px) translateX(-10px) rotate(-5deg);
+    }
+
+    75% {
+        transform: translateY(-20px) translateX(10px) rotate(5deg);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
 }
 
 @keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 @keyframes ripple {
-    from { opacity: 0; }
-    to { opacity: 0; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 /* Background elements animation */
 @keyframes moveBubbles {
-    from { opacity: 0; }
-    to { opacity: 0; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 /* Animation classes */
@@ -104,21 +164,34 @@ body::before {
 }
 
 /* Global text colors */
-.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-500 {
+.text-gray-600,
+.text-gray-700,
+.text-gray-800,
+.text-gray-500 {
     color: #1a1a1a !important;
     font-weight: 500;
 }
 
-label, p, a, h1, h2, h3, h4, h5, h6 {
+label,
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #1a1a1a !important;
 }
 
-input, textarea {
+input,
+textarea {
     color: #000000 !important;
     background: #ffffff !important;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -240,13 +313,23 @@ a:hover {
 }
 
 @keyframes floatParticle {
-    from { opacity: 0; }
-    to { opacity: 0; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 @keyframes pulseLine {
-    from { opacity: 0; }
-    to { opacity: 0; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 .particle svg,
@@ -370,8 +453,13 @@ a:hover {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Checkbox styling */
@@ -578,6 +666,7 @@ a:hover {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -666,6 +755,7 @@ a:hover {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -675,6 +765,7 @@ a:hover {
     from {
         transform: translateY(-20px);
     }
+
     to {
         transform: translateY(0);
     }
@@ -953,7 +1044,8 @@ body::before {
 }
 
 /* Messages */
-.error-message, .success-message {
+.error-message,
+.success-message {
     padding: 1rem;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
@@ -1010,6 +1102,7 @@ body::before {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1106,6 +1199,7 @@ body::before {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1194,6 +1288,7 @@ body::before {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -1203,6 +1298,7 @@ body::before {
     from {
         transform: translateY(-20px);
     }
+
     to {
         transform: translateY(0);
     }
@@ -1484,9 +1580,11 @@ input[type="checkbox"]:checked {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
+
     100% {
         transform: scale(1);
     }
@@ -1497,6 +1595,7 @@ input[type="checkbox"]:checked {
         transform: scale(1);
         opacity: 1;
     }
+
     100% {
         transform: scale(1.5);
         opacity: 0;
@@ -1519,7 +1618,7 @@ input[type="checkbox"]:checked {
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -1539,10 +1638,12 @@ input[type="checkbox"]:checked {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
     }
+
     70% {
         transform: scale(1.1);
         box-shadow: 0 0 0 10px rgba(244, 67, 54, 0);
     }
+
     100% {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
@@ -1633,9 +1734,11 @@ input[type="checkbox"]:checked {
     0% {
         box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
     }
+
     70% {
         box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
     }
+
     100% {
         box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
     }
@@ -1743,4 +1846,105 @@ input[type="checkbox"]:checked {
 
 .btn-secondary:hover {
     background-color: #4b5563;
-} 
+}
+
+/* Camera Interface Styles */
+#cameraPreview {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    display: block;
+    max-width: 500px;
+    width: 100%;
+    background-color: #000;
+}
+
+#captureBtn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#captureBtn:hover {
+    background-color: #4338ca;
+}
+
+#captureBtn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563;
+}

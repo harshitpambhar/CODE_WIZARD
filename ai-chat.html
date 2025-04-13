@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finova | AI Expense Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chat-message {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .user-message {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .ai-message {
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .message-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            position: relative;
+        }
+        
+        .user-bubble {
+            background-color: #4F46E5;
+            color: white;
+            border-bottom-right-radius: 0.25rem;
+        }
+        
+        .ai-bubble {
+            background-color: rgba(79, 70, 229, 0.2);
+            color: white;
+            border-bottom-left-radius: 0.25rem;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+            text-align: right;
+        }
+        
+        .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+        }
+        
+        .user-avatar {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+        }
+        
+        .ai-avatar {
+            background: linear-gradient(135deg, #7C3AED, #EC4899);
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background-color: rgba(79, 70, 229, 0.2);
+            border-radius: 1rem;
+            width: fit-content;
+            margin-bottom: 1rem;
+        }
+        
+        .typing-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 0.25rem;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-0.5rem);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .suggestion-chip {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: rgba(79, 70, 229, 0.3);
+            border-radius: 1.5rem;
+            margin: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .suggestion-chip:hover {
+            background-color: rgba(79, 70, 229, 0.5);
+        }
+        
+        .suggestions-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-900 text-white">
+    <!-- Navigation Bar -->
+    <nav class="bg-indigo-900/50 backdrop-blur-lg p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-500 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-coins text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold">Finova</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="btn-magic bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Chat Section -->
+            <div class="lg:col-span-2 glass-card rounded-xl p-6 h-[600px] flex flex-col">
+                <div class="flex-1 overflow-y-auto mb-4" id="chatMessages">
+                    <!-- Welcome message -->
+                    <div class="chat-message ai-message">
+                        <div class="avatar ai-avatar">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <div>
+                            <div class="message-bubble ai-bubble">
+                                <p>Hello! I'm your AI Expense Assistant. I can help you manage your expenses, analyze your spending patterns, and provide recommendations to reduce your expenses. How can I assist you today?</p>
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Typing indicator (hidden by default) -->
+                    <div id="typingIndicator" class="chat-message ai-message hidden">
+                        <div class="avatar ai-avatar">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <div class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Suggestion chips (hidden by default) -->
+                    <div id="suggestionChips" class="suggestions-container">
+                        <div class="suggestion-chip" data-suggestion="Show my expenses for last month">Show my expenses for last month</div>
+                        <div class="suggestion-chip" data-suggestion="How can I reduce my food expenses?">How can I reduce my food expenses?</div>
+                        <div class="suggestion-chip" data-suggestion="What's my highest spending category?">What's my highest spending category?</div>
+                        <div class="suggestion-chip" data-suggestion="Give me savings recommendations">Give me savings recommendations</div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-indigo-700 pt-4">
+                    <div class="flex space-x-2">
+                        <input type="text" id="userInput" placeholder="Ask about your expenses, budget, or savings..." class="input-glow flex-1 bg-indigo-900/50 text-white">
+                        <button id="sendBtn" class="btn-magic bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <button id="micBtn" class="btn-magic bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                    <div id="voiceStatus" class="hidden mt-2 text-sm text-indigo-300">
+                        Listening... Say something like "Show my expenses for last month" or "How can I reduce my food expenses?"
+                    </div>
+                </div>
+            </div>
+
+            <!-- History & Graphs Section -->
+            <div class="glass-card rounded-xl p-6 h-[600px] overflow-y-auto">
+                <!-- Tabs -->
+                <div class="flex border-b border-indigo-700 mb-4">
+                    <button id="historyTabBtn" class="flex-1 py-2 font-medium text-indigo-300 tab-underline active">
+                        <span class="relative z-10">History</span>
+                    </button>
+                    <button id="graphsTabBtn" class="flex-1 py-2 font-medium text-indigo-300 tab-underline">
+                        <span class="relative z-10">Graphs</span>
+                    </button>
+                </div>
+
+                <!-- History Tab -->
+                <div id="historyTab" class="h-full">
+                    <h2 class="text-xl font-semibold mb-4">Recent Transactions</h2>
+                    <div id="transactionHistory" class="space-y-3">
+                        <!-- Transactions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Graphs Tab -->
+                <div id="graphsTab" class="hidden h-full">
+                    <h2 class="text-xl font-semibold mb-4">Expense Analysis</h2>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium mb-2">Expense by Category</h3>
+                        <canvas id="categoryChart" height="200"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">Monthly Trend</h3>
+                        <canvas id="trendChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="mt-8 glass-card rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">AI Recommendations</h2>
+            <div id="recommendations" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Recommendations will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-container">
+        <div class="bg-bubble animate-bubbles" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 200px; height: 200px; bottom: 15%; right: 10%; animation-delay: 2s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 150px; height: 150px; top: 60%; left: 20%; animation-delay: 4s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 250px; height: 250px; bottom: 5%; left: 15%; animation-delay: 1s;"></div>
+        <div class="bg-bubble animate-bubbles" style="width: 180px; height: 180px; top: 20%; right: 15%; animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-indigo-300">
+        <p>© 2025 Finova. All rights reserved.</p>
+    </footer>
+
+    <script src="static/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const historyTabBtn = document.getElementById('historyTabBtn');
+            const graphsTabBtn = document.getElementById('graphsTabBtn');
+            const historyTab = document.getElementById('historyTab');
+            const graphsTab = document.getElementById('graphsTab');
+
+            historyTabBtn.addEventListener('click', function() {
+                historyTabBtn.classList.add('active');
+                graphsTabBtn.classList.remove('active');
+                historyTab.classList.remove('hidden');
+                graphsTab.classList.add('hidden');
+            });
+
+            graphsTabBtn.addEventListener('click', function() {
+                graphsTabBtn.classList.add('active');
+                historyTabBtn.classList.remove('active');
+                graphsTab.classList.remove('hidden');
+                historyTab.classList.add('hidden');
+            });
+
+            // Initialize charts with empty data
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Food', 'Transport', 'Entertainment', 'Bills', 'Shopping', 'Other'],
+                    datasets: [{
+                        data: [0, 0, 0, 0, 0, 0],
+                        backgroundColor: [
+                            '#4F46E5', '#7C3AED', '#EC4899', '#F59E0B', '#10B981', '#6B7280'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Expenses',
+                        data: [0, 0, 0, 0, 0, 0],
+                        borderColor: '#EC4899',
+                        tension: 0.4
+                    }, {
+                        label: 'Income',
+                        data: [0, 0, 0, 0, 0, 0],
+                        borderColor: '#10B981',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Chat functionality
+            const chatMessages = document.getElementById('chatMessages');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const micBtn = document.getElementById('micBtn');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const suggestionChips = document.getElementById('suggestionChips');
+            
+            // Function to add a user message to the chat
+            function addUserMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message user-message';
+                
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                messageDiv.innerHTML = `
+                    <div>
+                        <div class="message-bubble user-bubble">
+                            <p>${message}</p>
+                        </div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                    <div class="avatar user-avatar">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                `;
+                
+                // Hide typing indicator and suggestion chips
+                typingIndicator.classList.add('hidden');
+                suggestionChips.classList.add('hidden');
+                
+                // Add the message to the chat
+                chatMessages.appendChild(messageDiv);
+                
+                // Scroll to the bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                return messageDiv;
+            }
+            
+            // Function to add an AI message to the chat
+            function addAIMessage(message) {
+                // Show typing indicator
+                typingIndicator.classList.remove('hidden');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate typing delay
+                setTimeout(() => {
+                    // Hide typing indicator
+                    typingIndicator.classList.add('hidden');
+                    
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'chat-message ai-message';
+                    
+                    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    messageDiv.innerHTML = `
+                        <div class="avatar ai-avatar">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <div>
+                            <div class="message-bubble ai-bubble">
+                                <p>${message}</p>
+                            </div>
+                            <div class="message-time">${time}</div>
+                        </div>
+                    `;
+                    
+                    // Add the message to the chat
+                    chatMessages.appendChild(messageDiv);
+                    
+                    // Show suggestion chips after AI response
+                    suggestionChips.classList.remove('hidden');
+                    
+                    // Scroll to the bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+            }
+            
+            // Function to handle sending a message
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message) {
+                    // Add user message to chat
+                    addUserMessage(message);
+                    
+                    // Clear input
+                    userInput.value = '';
+                    
+                    // Process the message and get AI response
+                    processMessage(message);
+                }
+            }
+            
+            // Function to process the message and generate AI response
+            function processMessage(message) {
+                // Simple response logic based on keywords
+                let response = "I'm not sure how to help with that. Could you try asking about your expenses, budget, or savings?";
+                
+                if (message.toLowerCase().includes('expense') || message.toLowerCase().includes('spent')) {
+                    response = "I can see that your total expenses this month are ₹12,450. Your highest spending category is Food & Dining at ₹3,200. Would you like to see a breakdown of your expenses by category?";
+                } else if (message.toLowerCase().includes('budget')) {
+                    response = "Your monthly budget is set at ₹25,000. You've used 49.8% of your budget so far this month. You're on track to stay within your budget!";
+                } else if (message.toLowerCase().includes('saving') || message.toLowerCase().includes('reduce')) {
+                    response = "Based on your spending patterns, I recommend reducing your expenses on Food & Dining by 15% and Entertainment by 10%. This could save you approximately ₹800 per month. Would you like more specific recommendations?";
+                } else if (message.toLowerCase().includes('category') || message.toLowerCase().includes('breakdown')) {
+                    response = "Here's a breakdown of your expenses by category:<br>• Food & Dining: ₹3,200 (25.7%)<br>• Transportation: ₹2,100 (16.9%)<br>• Entertainment: ₹1,800 (14.5%)<br>• Bills & Utilities: ₹2,500 (20.1%)<br>• Shopping: ₹1,500 (12.0%)<br>• Other: ₹1,350 (10.8%)";
+                } else if (message.toLowerCase().includes('recommendation')) {
+                    response = "Here are some personalized recommendations to help you save money:<br>1. Consider meal planning to reduce food expenses<br>2. Look for subscription services you can cancel<br>3. Set up automatic savings transfers<br>4. Use public transportation more often<br>5. Compare prices before making purchases";
+                }
+                
+                // Add AI response to chat
+                addAIMessage(response);
+            }
+            
+            // Event listeners
+            sendBtn.addEventListener('click', sendMessage);
+            
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Suggestion chip click handler
+            document.querySelectorAll('.suggestion-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const suggestion = this.getAttribute('data-suggestion');
+                    userInput.value = suggestion;
+                    sendMessage();
+                });
+            });
+            
+            // Voice input functionality
+            let recognition;
+            if ('webkitSpeechRecognition' in window) {
+                recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                
+                recognition.onstart = function() {
+                    micBtn.classList.add('bg-indigo-800');
+                    document.getElementById('voiceStatus').classList.remove('hidden');
+                };
+                
+                recognition.onend = function() {
+                    micBtn.classList.remove('bg-indigo-800');
+                    document.getElementById('voiceStatus').classList.add('hidden');
+                };
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    userInput.value = transcript;
+                    sendMessage();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error', event.error);
+                    micBtn.classList.remove('bg-indigo-800');
+                    document.getElementById('voiceStatus').classList.add('hidden');
+                };
+            }
+            
+            micBtn.addEventListener('click', function() {
+                if (recognition) {
+                    recognition.start();
+                } else {
+                    alert('Speech recognition is not supported in your browser.');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
